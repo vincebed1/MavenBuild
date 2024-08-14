@@ -46,9 +46,9 @@ jobs:
     - name: connect to LAb and trigger jenkins job
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest 
       with:
-        host: '$MY_SSHHOST'
-        user: '$MY_USERNAME'
-        pass: '$MY_PASSWORD'
+        host: '54.81.255.30'
+        user: 'abhijithvggmail'
+        pass: 'ggmail0A@h45sf'
         port: 42006
         connect_timeout: 10s 
         first_ssh: |
