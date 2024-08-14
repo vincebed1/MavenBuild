@@ -1,0 +1,19 @@
+name: GitHub actions - To Test Repo - Trigger Jenkins Job
+run-name: Test Repo - Trigger Jenkins Job
+
+on:
+  push:
+    branches: ["master"]
+
+env:
+  owner_name: ABhi
+  TARGET_HOST: ${{ secrets.LAB_HOSTNAME }}
+  TARGET_PORT: ${{ secrets.LAB_PORT }}
+  TARGET_USERNAME: ${{ secrets.LAB_USERNAME }}
+  TARGET_PASSWORD: ${{ secrets.LAB_PASSWORD }}
+
+jobs:
+  basic_workflow:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Job basic_workflow is executing as part of new workflow - from $owner_name - with details $TARGET_HOST, $TARGET_PORT, $TARGET_USERNAME, $TARGET_PASSWORD"
