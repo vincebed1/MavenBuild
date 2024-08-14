@@ -2,6 +2,7 @@ name: CI Workflow for Docker Build
 
 on:
   push:
+    branches: ["main"]
 
 jobs:
   docker:
