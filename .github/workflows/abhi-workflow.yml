@@ -11,6 +11,10 @@ env:
   TARGET_PORT: ${{ secrets.LAB_PORT }}
   TARGET_USERNAME: ${{ secrets.LAB_USERNAME }}
   TARGET_PASSWORD: ${{ secrets.LAB_PASSWORD }}
+  MY_SSHHOST: ${{ vars.MY_HOST }}
+  MY_SSHPORT: ${{ vars.MY_PORT }}
+  MY_USERNAME: ${{ vars.MY_UN }}
+  MY_PASSWORD: ${{ vars.MY_PASS }}
 
 jobs:
   build_test:
@@ -21,7 +25,7 @@ jobs:
       run: echo "Job build_test is executing as part of new workflow - from $owner_name - with details $TARGET_HOST, $TARGET_PORT, $TARGET_USERNAME, $TARGET_PASSWORD"
 
     - name: Job 2
-      run: echo 'Target port = $TARGET_PORT'
+      run: echo 'Values -> $MY_SSHHOST - $MY_SSHPORT - $MY_USERNAME - $MY_PASSWORD'
     # - uses: actions/checkout@v4
     # # - name: Set up JDK 17
     # #   uses: actions/setup-java@v4
@@ -42,9 +46,9 @@ jobs:
     - name: connect to LAb and trigger jenkins job
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest 
       with:
-        host: '$TARGET_HOST'
-        user: '$TARGET_USERNAME'
-        pass: '$TARGET_PASSWORD'
+        host: '$MY_SSHHOST'
+        user: '$MY_USERNAME'
+        pass: '$MY_PASSWORD'
         port: 42006
         connect_timeout: 10s 
         first_ssh: |
