@@ -52,4 +52,4 @@ jobs:
         port: 42006
         connect_timeout: 10s 
         first_ssh: |
-          sudo pwd
+          sudo curl -I -u admin:111834e737170cb072dbe97cc7b4e3c405 http://localhost:8080/job/testjob/build?token=my_custom_token
