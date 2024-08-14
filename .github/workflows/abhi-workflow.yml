@@ -25,7 +25,7 @@ jobs:
       run: echo "Job build_test is executing as part of new workflow - from $owner_name - with details $TARGET_HOST, $TARGET_PORT, $TARGET_USERNAME, $TARGET_PASSWORD"
 
     - name: Job 2
-      run: echo 'Values -> $MY_SSHHOST - $MY_SSHPORT - $MY_USERNAME - $MY_PASSWORD'
+      run: echo "Values -> $MY_SSHHOST - $MY_SSHPORT - $MY_USERNAME - $MY_PASSWORD"
     # - uses: actions/checkout@v4
     # # - name: Set up JDK 17
     # #   uses: actions/setup-java@v4
