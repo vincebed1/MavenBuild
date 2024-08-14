@@ -6,15 +6,7 @@ on:
     branches: ["master"]
 
 env:
-  owner_name: ABhi
-  TARGET_HOST: ${{ secrets.LAB_HOSTNAME }}
-  TARGET_PORT: ${{ secrets.LAB_PORT }}
-  TARGET_USERNAME: ${{ secrets.LAB_USERNAME }}
-  TARGET_PASSWORD: ${{ secrets.LAB_PASSWORD }}
-  MY_SSHHOST: ${{ vars.MY_HOST }}
-  MY_SSHPORT: ${{ vars.MY_PORT }}
-  MY_USERNAME: ${{ vars.MY_UN }}
-  MY_PASSWORD: ${{ vars.MY_PASS }}
+  owner_name: Abhi
 
 jobs:
   build_test:
@@ -22,34 +14,27 @@ jobs:
     
     steps:
     - name: Job Info
-      run: echo "Job build_test is executing as part of new workflow - from $owner_name - with details $TARGET_HOST, $TARGET_PORT, $TARGET_USERNAME, $TARGET_PASSWORD"
+      run: echo "Job build_test is executing as part of new workflow - from $owner_name"
 
-    - name: Job 2
-      run: echo "Values -> $MY_SSHHOST - $MY_SSHPORT - $MY_USERNAME - $MY_PASSWORD"
-    # - uses: actions/checkout@v4
-    # # - name: Set up JDK 17
-    # #   uses: actions/setup-java@v4
-    # #   with:
-    # #     java-version: '17'
-    # #     distribution: 'temurin'
-    # #     cache: maven
-    # - name: Setup Maven Action
-    #   uses: s4u/setup-maven-action@v1.7.0
-    #   with:
-    #     checkout-fetch-depth: 0
-    #     java-version: 17
-    #     java-distribution: temurin
-    #     maven-version: 3.9.8
-    # - name: Test with Maven
-    #   run: mvn -B test --file pom.xml
+    - uses: actions/checkout@v4
 
+    - name: Setup Maven Action
+      uses: s4u/setup-maven-action@v1.7.0
+      with:
+        checkout-fetch-depth: 0
+        java-version: 17
+        java-distribution: temurin
+        maven-version: 3.9.8
+    - name: Test with Maven
+      run: mvn -B test --file pom.xml
+    
     - name: connect to LAb and trigger jenkins job
       uses: cross-the-world/ssh-scp-ssh-pipelines@latest 
       with:
-        host: '54.81.255.30'
-        user: 'abhijithvggmail'
-        pass: 'ggmail0A@h45sf'
-        port: 42006
+        host: ${{ secrets.LAB_HOSTNAME }}
+        user: ${{ secrets.LAB_USERNAME }}
+        pass: ${{ secrets.LAB_PASSWORD }}
+        port: ${{ secrets.LAB_PORT }}
         connect_timeout: 10s 
         first_ssh: |
           sudo curl -I -u admin:111834e737170cb072dbe97cc7b4e3c405 http://localhost:8080/job/testjob/build?token=my_custom_token
